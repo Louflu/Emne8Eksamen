@@ -1,3 +1,7 @@
 <Solution>
+  <Folder Name="/db/">
+    <File Path="../../db/database_setup.sql" />
+    <File Path="../../db/database_setup.txt" />
+  </Folder>
   <Project Path="ProductsApi.csproj" />
 </Solution>
