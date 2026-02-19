@@ -1,11 +1,22 @@
+using ProductsApi.Models;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var connectionString = builder.Configuration.GetConnectionString("Default");
+var serverVersion = new MySqlServerVersion(new Version(8, 4, 6));
+
+builder.Services.AddDbContext<ProductContext>(
+    dbContextOptions => dbContextOptions
+        .UseMySql(connectionString, serverVersion));
 
 var app = builder.Build();
 

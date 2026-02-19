@@ -1,13 +1,50 @@
 services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecretpassword
+      MYSQL_DATABASE: product-db
+      MYSQL_USER: product_api
+      MYSQL_PASSWORD: securepass
+
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./Emne8Eksamen/app/db:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+
   productsapi:
-    image: ${DOCKER_REGISTRY-}productsapi
     build:
       context: ProductsApi
       dockerfile: Dockerfile
+    container_name: productsapi
+    depends_on:
+      mysql:
+        condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Default=Server=mysql;Database=product-db;User=product_api;Password=securepass;
     ports:
       - "8080"
-      - "8081"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_container
+    build:
+      context:  ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - productsapi
+
+volumes:
+  db_data:

@@ -7,8 +7,6 @@ namespace ProductsApi.Models
         {
         }
 
-        public DbSet<ProductItem> Products { get; set; }
-
-        public string? DbPath{ get; } 
+        public DbSet<Product> Products { get; set; }
     }
 }

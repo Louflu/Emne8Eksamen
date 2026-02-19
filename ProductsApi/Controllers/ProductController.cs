@@ -36,7 +36,7 @@ namespace ProductsApi.Controllers
 
             try
             {
-                IQueryable<ProductItem> filtered = products;
+                IQueryable<Product> filtered = products;
                 if (productid != null)
                 {
                     filtered = filtered.Where(p => p.Id == productid);
