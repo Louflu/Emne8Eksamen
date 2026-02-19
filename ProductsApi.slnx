@@ -1,7 +1,7 @@
 <Solution>
   <Folder Name="/db/">
-    <File Path="../db/database_setup.sql" />
-    <File Path="../db/database_setup.txt" />
+    <File Path="db/database_setup.sql" />
+    <File Path="db/database_setup.txt" />
   </Folder>
   <Folder Name="/nginx/" />
   <Project Path="docker-compose.dcproj">
