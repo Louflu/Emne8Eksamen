@@ -3,7 +3,12 @@
     <File Path="db/database_setup.sql" />
     <File Path="db/database_setup.txt" />
   </Folder>
-  <Folder Name="/nginx/" />
+  <Folder Name="/nginx/">
+    <File Path="nginx/nginx.conf" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
   </Project>
