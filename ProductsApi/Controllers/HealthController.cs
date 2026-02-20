@@ -8,11 +8,8 @@ namespace ProductsApi.Controllers
     [Route("api/[controller]")]
     public class HealthController : Controller
     {
-
-        private readonly ProductContext context;
-        public HealthController(ProductContext context)
+        public HealthController() 
         {
-            this.context = context;
         }
 
         //healthcheck endpoint api kall
