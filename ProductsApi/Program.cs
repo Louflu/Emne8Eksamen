@@ -2,6 +2,8 @@ using ProductsApi.Models;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Amazon.CloudWatch;
+using ProductsApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var amazonCloudConfig = new AmazonCloudWatchConfig
+{
+    RegionEndpoint = Amazon.RegionEndpoint.EUNorth1,
+};
+
+builder.Services.AddSingleton(x => new CloudWatchMetricsService(new AmazonCloudWatchClient(amazonCloudConfig)));
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
 var serverVersion = new MySqlServerVersion(new Version(8, 4, 6));

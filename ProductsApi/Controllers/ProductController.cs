@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductsApi.Models;
+using ProductsApi.Services;
 
 namespace ProductsApi.Controllers
 {
@@ -8,9 +9,11 @@ namespace ProductsApi.Controllers
     public class ProductsController : Controller
     {
         private readonly ProductContext context;
-        public ProductsController(ProductContext context)
+        private readonly CloudWatchMetricsService cloudWatchMetricsService;
+        public ProductsController(ProductContext context, CloudWatchMetricsService cloudWatchMetricsService)
         {
             this.context = context;
+            this.cloudWatchMetricsService = cloudWatchMetricsService;
         }
 
         // get product list
@@ -18,8 +21,10 @@ namespace ProductsApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetProductList()
+        public async Task<IActionResult> GetProductList()
         {
+            await cloudWatchMetricsService.SendApiCallMetricAsync();
+
             var products = context.Products.ToList();
 
             return Ok(products);
@@ -29,8 +34,10 @@ namespace ProductsApi.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetProductById(int id)
+        public async Task<IActionResult> GetProductById(int id)
         {
+            await cloudWatchMetricsService.SendApiCallMetricAsync();
+
             var product = context.Products.FirstOrDefault(p => p.Id == id);
             if (product == null)
                 return NotFound($"Product with ID {id} not found.");
