@@ -36,15 +36,3 @@ I større skala prosjekt ville jeg også hatt flere healthchecks som også sjekk
 https://hub.docker.com/repository/docker/louniverse/eksamen-cloud/general
 
 
-## Link til Github-repository:
-https://github.com/Louflu/Emne8Eksamen
-
-# Kilder:
-https://learn.microsoft.com/en-us/ef/core/
-https://stackoverflow.com/questions/50286390/how-to-create-sql-server-database-using-entity-framework-database-first-code
-https://medium.com/@tanya.rashid/database-generation-with-entity-framework-net-and-sql-server-quick-tutorial-a1c3ca21fdb0
-https://www.geeksforgeeks.org/devops/docker-compose-for-database/
-https://docs.docker.com/guides/pre-seeding/
-https://stackoverflow.com/questions/62351410/health-check-asp-net-web-api
-https://medium.com/@jeslurrahman/implementing-health-checks-in-net-8-c3ba10af83c3
-https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-10.0
